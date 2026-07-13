@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antes de tu llamada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e17;
+  --bg-card:#111726;
+  --bg-field:#151d2e;
+  --gold:#c9a84c;
+  --gold-soft:#e6cf8b;
+  --ink:#f5f3ee;
+  --muted:#9aa3b5;
+  --line:rgba(255,255,255,.08);
+  --line-gold:rgba(201,168,76,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Poppins',sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;padding:60px 20px 100px}
+.wrap{max-width:700px;margin:0 auto}
+
+h1{font-size:1.9rem;font-weight:700;margin-bottom:14px}
+.sub{color:var(--muted);font-size:.95rem;max-width:520px;margin-bottom:36px}
+hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+
+label{display:block;font-size:.88rem;font-weight:500;margin-bottom:10px}
+label .req{color:var(--gold);margin-left:2px}
+label .opt{color:var(--muted);font-weight:400;font-size:.82rem;margin-left:4px}
+.hint{font-size:.78rem;color:var(--muted);margin:-4px 0 10px;font-style:italic}
+
+input[type=text], input[type=email], input[type=tel], input[type=date], textarea, select{
+  width:100%;
+  background:var(--bg-field);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:13px 16px;
+  color:var(--ink);
+  font-family:inherit;
+  font-size:.92rem;
+  outline:none;
+  transition:border-color .2s ease;
+}
+input::placeholder, textarea::placeholder{color:#5b6478}
+input:focus, textarea:focus, select:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:90px}
+
+.field{margin-bottom:26px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+select:invalid{color:#5b6478}
+
+.submit-btn{
+  width:100%;
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+  color:#14100a;
+  border:none;
+  border-radius:6px;
+  padding:17px;
+  font-size:.9rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  margin-top:12px;
+  transition:filter .2s ease;
+}
+.submit-btn:hover{filter:brightness(1.05)}
+.submit-btn:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Antes de tu llamada</h1>
+  <p class="sub">Tómate 3 minutos para contarme un poco sobre ti. Así llego a la llamada con una idea clara de cómo ayudarte.</p>
+  <hr>
+
+  <div class="field">
+    <label>Nombre completo<span class="req">*</span></label>
+    <input type="text" placeholder="">
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Correo electrónico<span class="req">*</span></label>
+      <input type="email" placeholder="">
+    </div>
+    <div class="field">
+      <label>WhatsApp<span class="req">*</span></label>
+      <input type="tel" placeholder="">
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="field">
+    <label>¿A qué te dedicas actualmente?<span class="req">*</span></label>
+    <p class="hint">Ej: Gerente Comercial en una empresa de consumo masivo</p>
+    <input type="text" placeholder="">
+  </div>
+
+  <div class="field">
+    <label>¿Qué te hizo buscar ayuda con tu inglés justo ahora?<span class="req">*</span></label>
+    <textarea placeholder="Cuéntame qué está pasando en tu trabajo o en tu vida que te hizo dar este paso..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Hoy en día, ¿qué es lo que más te frena al hablar inglés?<span class="req">*</span></label>
+    <p class="hint">Ej: se me olvida el vocabulario, traduzco en mi cabeza, me da miedo el acento...</p>
+    <textarea placeholder=""></textarea>
+  </div>
+
+  <div class="field">
+    <label>¿Has intentado aprender inglés antes?<span class="opt">(Opcional)</span></label>
+    <p class="hint">Cuéntame qué probaste y qué no funcionó.</p>
+    <textarea placeholder=""></textarea>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="field">
+      <label>Fecha de inicio preferida<span class="req">*</span></label>
+      <input type="date">
+    </div>
+    <div class="field">
+      <label>Horas semanales disponibles<span class="req">*</span></label>
+      <select defaultValue="">
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option>2 horas</option>
+        <option>2 a 3 horas</option>
+        <option>3 a 4 horas</option>
+      </select>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="field">
+    <label>¿Hay algo más que quieras que sepa antes de la llamada?<span class="opt">(Opcional)</span></label>
+    <textarea placeholder="Contexto adicional, horarios, o cualquier cosa que quieras compartir..."></textarea>
+  </div>
+
+  <button class="submit-btn">Confirmar →</button>
+</div>
+</body>
+</html>
