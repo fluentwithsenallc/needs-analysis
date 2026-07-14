@@ -146,26 +146,31 @@ select:invalid{color:#5b6478}
   </div>
 
   <button class="submit-btn">Confirmar →</button>
-</div>
-<script>
-    const WEBHOOK_URL = 'https://hook.us2.make.com/nb5xc3gxlf7fko6x4t6ktq7627uf269y'; // Keep your exact Make URL here
+<div class="confirm-page" id="confirm" style="display: none;">
+        <div class="confirm-icon">✓</div>
+        <h2>¡Gracias por completar el formulario!</h2>
+        <div class="confirm-divider"></div>
+        <p>Tu información fue recibida. Te enviaré una copia de tus respuestas a tu correo.<br><br>Nos vemos pronto.</p>
+    </div>
+  </div>
+  
+  <script>
+    const WEBHOOK_URL = 'https://hook.us2.make.com/nb5xc3gxl7fko6x4t6ktq7627uf269y'; // Keep your exact Make URL here
 
     document.querySelector('.submit-btn').addEventListener('click', async (e) => {
         e.preventDefault();
         
+        const submitBtn = document.querySelector('.submit-btn');
         const formData = {};
         
         // Target all form elements
         document.querySelectorAll('input, textarea, select').forEach((element, index) => {
-            // Find the closest label within the same field container
             const parentContainer = element.closest('.field') || element.parentElement;
             const labelElement = parentContainer?.querySelector('label');
             
-            // Clean up the label text to use as the key (e.g., "Nombre completo")
             let fieldKey = labelElement ? labelElement.textContent : (element.placeholder || element.name || `Field_${index}`);
             fieldKey = fieldKey.replace('*', '').replace('(Opcional)', '').trim();
             
-            // Handle radio buttons/checkboxes if you add them later, otherwise grab standard values
             if (element.type === 'checkbox' || element.type === 'radio') {
                 if (element.checked) formData[fieldKey] = element.value;
             } else {
@@ -173,7 +178,10 @@ select:invalid{color:#5b6478}
             }
         });
 
-        // Send to Make
+        // Disable button while sending
+        submitBtn.textContent = "Enviando...";
+        submitBtn.disabled = true;
+
         try {
             const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
@@ -182,13 +190,23 @@ select:invalid{color:#5b6478}
             });
             
             if (response.ok) {
-                alert('¡Datos enviados con éxito!');
+                // 1. Hide all form field containers and the submit button
+                document.querySelectorAll('.field, hr, .submit-btn').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // 2. Show the confirmation screen
+                document.getElementById('confirm').style.display = 'block';
             } else {
-                alert('Hubo un error al enviar los datos.');
+                alert('Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.');
+                submitBtn.textContent = "Confirmar →";
+                submitBtn.disabled = false;
             }
         } catch (error) {
             console.error('Error:', error);
             alert('Error de conexión.');
+            submitBtn.textContent = "Confirmar →";
+            submitBtn.disabled = false;
         }
     });
 </script>
