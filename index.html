@@ -148,23 +148,32 @@ select:invalid{color:#5b6478}
   <button class="submit-btn">Confirmar →</button>
 </div>
 <script>
-    // 1. Paste your actual Make Webhook URL here:
-    const WEBHOOK_URL = 'https://hook.us2.make.com/nb5xc3gxlf7fko6x4t6ktq7627uf269y';
+    const WEBHOOK_URL = 'https://hook.us2.make.com/nb5xc3gxlf7fko6x4t6ktq7627uf269y'; // Keep your exact Make URL here
 
-    // 2. This listens for the form submission
     document.querySelector('.submit-btn').addEventListener('click', async (e) => {
         e.preventDefault();
         
-        // Collects the data from your inputs, textareas, and selects
         const formData = {};
-        document.querySelectorAll('input, textarea, select').forEach(element => {
-            if (element.label || element.placeholder || element.name) {
-                const label = element.previousElementSibling?.textContent || element.placeholder || 'Field';
-                formData[label.replace('*', '').trim()] = element.value;
+        
+        // Target all form elements
+        document.querySelectorAll('input, textarea, select').forEach((element, index) => {
+            // Find the closest label within the same field container
+            const parentContainer = element.closest('.field') || element.parentElement;
+            const labelElement = parentContainer?.querySelector('label');
+            
+            // Clean up the label text to use as the key (e.g., "Nombre completo")
+            let fieldKey = labelElement ? labelElement.textContent : (element.placeholder || element.name || `Field_${index}`);
+            fieldKey = fieldKey.replace('*', '').replace('(Opcional)', '').trim();
+            
+            // Handle radio buttons/checkboxes if you add them later, otherwise grab standard values
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                if (element.checked) formData[fieldKey] = element.value;
+            } else {
+                formData[fieldKey] = element.value;
             }
         });
 
-        // Sends the data to Make
+        // Send to Make
         try {
             const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
